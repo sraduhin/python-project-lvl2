@@ -1,0 +1,10 @@
+__pycache__/
+
+# venv
+.venv
+
+# vscode
+.vscode
+
+# dist
+dist/
