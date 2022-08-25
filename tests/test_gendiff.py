@@ -1,5 +1,5 @@
 import re
-from gendiff.scripts.gendiff import test_for_test, generate_diff
+from gendiff.comparer import test_for_test
 
 def test_test_for_test():
     result = 1234
