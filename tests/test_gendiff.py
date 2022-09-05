@@ -2,7 +2,6 @@ from gendiff.comparer import generate_diff
 from gendiff.printer import print_diff
 from gendiff.parser.parser import parser
 import pytest
-from tests.fixtures.result_ import data
 
 
 
@@ -17,8 +16,8 @@ def test_generate_diff_json():
 
 
 def test_generate_diff_yml():
-    pathfile1 = 'tests/fixtures/file1.yml'
-    pathfile2 = 'tests/fixtures/file2.yml'
+    pathfile1 = 'tests/fixtures/plain/file1.yml'
+    pathfile2 = 'tests/fixtures/plain/file2.yml'
     with open(pathfile1, 'r'):
         with open(pathfile2, 'r'):
             with open('tests/fixtures/plain/result_printed', 'r') as result:
@@ -57,6 +56,11 @@ def test_printer():
                 'name': "follow",
                 'operator': "+",
                 'value': "false"
+            },
+            {
+                'name': "setting1",
+                'operator': None,
+                'value': "Value 1"
             },
             {
                 'name': "setting2",
@@ -213,4 +217,8 @@ def test_printer():
 ]
     with open('tests/fixtures/nested/result_printed', 'r') as result:
         result = result.read()
+        print('>>>print_diff(data)')
+        print(print_diff(data))
+        print('>>>result')
+        print(result)
         assert print_diff(data) == result

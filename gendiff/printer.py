@@ -1,17 +1,23 @@
-def print_diff(data, replacer = '  '):
+'''def print_diff(data, replacer = '****'):
     def go_deeper(data, depth):
         result = ''
         if not isinstance(data, list):
             result += f'{data or ""}'
         else:
-            depth += 2
+            depth += 1
             result += '{\n'
             for item in data:
                 result += f'{replacer * depth}{item["operator"] or " "} {item["name"]}: {go_deeper(item["value"], depth)}\n'
             result += f'{replacer * (depth - 1)}'
             result += '}'
         return result
-    print (go_deeper(data, 0))
+    return (go_deeper(data, 0))'''
+import json
+
+def print_diff(data):
+    json_data = json.dumps(data, indent=4)
+    return json_data
+
 
 data = [
     {
@@ -179,4 +185,4 @@ data = [
 
 
 if __name__ == "__main__":
-    print_diff(data)
+    print(print_diff(data))
