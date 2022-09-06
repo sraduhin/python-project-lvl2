@@ -1,7 +1,7 @@
-from gendiff.parser.parser import parser
+# from gendiff.parser.parser import parser
 
 
-def generate_diff(data1, data2):
+'''def generate_diff(data1, data2):
     result = {}
     union_keys = sorted(set(data1.keys() | data2.keys()))
     for key in union_keys:
@@ -17,12 +17,60 @@ def generate_diff(data1, data2):
             result[f'- {key}'] = data1[key]
         else:
             result[f'+ {key}'] = data2[key]
+    return result'''
+import os
+import json
+import yaml
+
+
+JSON_EXTENSIONS = ['json']
+YAML_EXTENSIONS = ['yml', 'yaml']
+
+
+def parser(filepath):
+    if os.path.isfile(filepath):
+        if filepath.split('.')[1] not in (JSON_EXTENSIONS + YAML_EXTENSIONS):
+            file_name = filepath.split('/').pop()
+            raise ValueError(f'enexpected extension of the file: {file_name}')
+
+        with open(filepath, 'r') as f:
+            if filepath.split('.')[1] in JSON_EXTENSIONS:
+                return json.load(f)
+            if filepath.split('.')[1] in YAML_EXTENSIONS:
+                return yaml.safe_load(f)
+    raise ValueError(f"{filepath} doesn't exists")
+
+def put(data):
+    dict_data = {}
+    if not isinstance(data, dict):
+        return data
+    for key in data.keys():
+        dict_data[key] = { 'value': put(data[key]) }
+    return dict_data
+
+def generate_diff(data1, data2):
+    result = {}
+    union_keys = sorted(set(data1.keys() | data2.keys()))  # перенести сортировку в конец программы
+    for key in union_keys:
+        if data1.get(key) == data2.get(key):
+            result[key] = { 'value': data1[key] }
+        elif key in data1 and key in data2:
+            if isinstance(data1[key], dict) and isinstance(data2[key], dict):
+                result[key] = { 'value': generate_diff(data1[key], data2[key]) }
+            else:
+                result[key] = { 'value': put(data1[key]), 'operator': "-" }
+                result[key] = { 'value': put(data2[key]), 'operator': "+" }
+        elif key in data1:
+            result[key] = { 'value': put(data1[key]), 'operator': "-" }
+        else:
+            result[key] = { 'value': put(data2[key]), 'operator': "+" }
     return result
 
 
 def run_differ(filepath1, filepath2):
     data1 = parser(filepath1)
     data2 = parser(filepath2)
+    print(generate_diff(data1, data2))
     return generate_diff(data1, data2)
 
 

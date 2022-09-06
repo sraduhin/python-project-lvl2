@@ -3,59 +3,9 @@ from gendiff.parser.parser import parser
 from gendiff.printer import show_diff
 import pytest
 
-plain = {
-    '- follow': False,
-    '  host': 'hexlet.io',
-    '- proxy': '123.234.53.22',
-    '- timeout': 50,
-    '+ timeout': 20,
-    '+ verbose': True,
-}
+plain = {'follow': {'value': False, 'operator': '-'}, 'host': {'value': 'hexlet.io'}, 'proxy': {'value': '123.234.53.22', 'operator': '-'}, 'timeout': {'value': 20, 'operator': '+'}, 'verbose': {'value': True, 'operator': '+'}}
 
-nested = {
-    '  common': {
-        '+ follow': False,
-        '  setting1': 'Value 1',
-        '- setting2': 200,
-        '- setting3': True,
-        '+ setting3': None,
-        '+ setting4': 'blah blah',
-        '+ setting5': {
-            '  key5': 'value5',
-        },
-        '  setting6': {
-            '  doge': {
-                '- wow': '',
-                '+ wow': 'so much',
-            },
-            '  key': 'value',
-            '+ ops': 'vops',
-        },
-    },
-    '  group1': {
-        '- baz': 'bas',
-        '+ baz': 'bars',
-        '  foo': 'bar',
-        '- nest': {
-            '  key': 'value',
-        },
-        '+ nest': 'str',
-    },
-    '- group2': {
-        '  abc': 12345,
-        '  deep': {
-            '  id': 45,
-        },
-    },
-    '+ group3': {
-        '  deep': {
-            '  id': {
-                '  number': 45,
-            },
-        },
-        '  fee': 100500,
-    },
-}
+nested = {'common': {'value': {'follow': {'value': False, 'operator': '+'}, 'setting1': {'value': 'Value 1'}, 'setting2': {'value': 200, 'operator': '-'}, 'setting3': {'value': None, 'operator': '+'}, 'setting4': {'value': 'blah blah', 'operator': '+'}, 'setting5': {'value': {'key5': {'value': 'value5'}}, 'operator': '+'}, 'setting6': {'value': {'doge': {'value': {'wow': {'value': 'so much', 'operator': '+'}}}, 'key': {'value': 'value'}, 'ops': {'value': 'vops', 'operator': '+'}}}}}, 'group1': {'value': {'baz': {'value': 'bars', 'operator': '+'}, 'foo': {'value': 'bar'}, 'nest': {'value': 'str', 'operator': '+'}}}, 'group2': {'value': {'abc': {'value': 12345}, 'deep': {'value': {'id': {'value': 45}}}}, 'operator': '-'}, 'group3': {'value': {'deep': {'value': {'id': {'value': {'number': {'value': 45}}}}}, 'fee': {'value': 100500}}, 'operator': '+'}}
 
 
 def test_generate_diff_plain_json():
