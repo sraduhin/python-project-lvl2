@@ -1,188 +1,68 @@
-'''def print_diff(data, replacer = '****'):
-    def go_deeper(data, depth):
-        result = ''
-        if not isinstance(data, list):
-            result += f'{data or ""}'
-        else:
-            depth += 1
-            result += '{\n'
-            for item in data:
-                result += f'{replacer * depth}{item["operator"] or " "} {item["name"]}: {go_deeper(item["value"], depth)}\n'
-            result += f'{replacer * (depth - 1)}'
-            result += '}'
-        return result
-    return (go_deeper(data, 0))'''
 import json
 
-def print_diff(data):
-    json_data = json.dumps(data, indent=4)
-    return json_data
+
+plain_data = {
+    '- follow': False,
+    '  host': 'hexlet.io',
+    '- proxy': '123.234.53.22',
+    '- timeout': 50,
+    '+ timeout': 20,
+    '+ verbose': True,
+}
+
+nested_data = {
+    '  common': {
+        '+ follow': False,
+        '  setting1': 'Value 1',
+        '- setting2': 200,
+        '- setting3': True,
+        '+ setting3': None,
+        '+ setting4': 'blah blah',
+        '+ setting5': {
+            'key5': 'value5',
+        },
+        '  setting6': {
+            '  doge': {
+                '- wow': '',
+                '+ wow': 'so much',
+            },
+            '  key': 'value',
+            '+ ops': 'vops',
+        },
+    },
+    '  group1': {
+        '- baz': 'bas',
+        '+ baz': 'bars',
+        '  foo': 'bar',
+        '- nest': {
+            'key': 'value',
+        },
+        '+ nest': 'str',
+    },
+    '- group2': {
+        'abc': 12345,
+        'deep': {
+            'id': 45,
+        },
+    },
+    '+ group3': {
+        'deep': {
+            'id': {
+                'number': 45,
+            },
+        },
+        'fee': 100500,
+    },
+}
 
 
-data = [
-    {
-        'name': "common",
-        'operator': None,
-        'value': [
-            {
-                'name': "follow",
-                'operator': "+",
-                'value': "false"
-            },
-            {
-                'name': "setting2",
-                'operator': "-",
-                'value': "200"
-            },
-            {
-                'name': "setting3",
-                'operator': "-",
-                'value': "true"
-            },
-            {
-                'name': "setting3",
-                'operator': "+",
-                'value': "null"
-            },
-            {
-                'name': "setting4",
-                'operator': "+",
-                'value': "blah blah"
-            },
-            {
-                'name': "setting5",
-                'operator': "+",
-                'value': [
-                    {
-                        'name': "key5",
-                        'operator': None,
-                        'value': "value5"
-                    }
-                ]
-            },
-            {
-                'name': "setting6",
-                'operator': None,
-                'value': [
-                    {
-                        'name': "doge",
-                        'operator': None,
-                        'value': [
-                            {
-                                'name': "wow",
-                                'operator': "-",
-                                'value': None
-                            },
-                            {
-                                'name': "wow",
-                                'operator': "+",
-                                'value': "so much"
-                            }
-                        ]
-                    },
-                    {
-                        'name': "key",
-                        'operator': None,
-                        'value': "value"
-                    },
-                    {
-                        'name': "ops",
-                        'operator': "+",
-                        'value': "vops"
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        'name': "group1",
-        'operator': None,
-        'value': [
-            {
-                'name': "baz",
-                'operator': "-",
-                'value': "bas"
-            },
-            {
-                'name': "baz",
-                'operator': "+",
-                'value': "bars"
-            },
-            {
-                'name': "foo",
-                'operator': None,
-                'value': "bar"
-            },
-            {
-                'name': "nest",
-                'operator': "-",
-                'value': [
-                    {
-                        'name': "key",
-                        'operator': None,
-                        'value': "value"
-                    }
-                ]
-            },
-            {
-                'name': "nest",
-                'operator': "+",
-                'value': "str"
-            }
-        ]
-    },
-    {
-        'name': "group2",
-        'operator': "-",
-        'value': [
-            {
-                'name': "abc",
-                'operator': None,
-                'value': "12345"
-            },
-            {
-                'name': "deep",
-                'operator': None,
-                'value': [
-                    {
-                        'name': "id",
-                        'operator': None,
-                        'value': "45"
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        'name': "group3",
-        'operator': "+",
-        'value': [
-            {
-                'name': "deep",
-                'operator': None,
-                'value': [
-                    {
-                        'name': "id",
-                        'operator': None,
-                        'value': [
-                            {
-                                'name': "number",
-                                'operator': None,
-                                'value': "45"
-                            }
-                        ]
-                    }
-                ]
-            },
-            {
-                'name': "fee",
-                'operator': None,
-                'value': "100500"
-            }
-        ]
-    }
-]
+def show_diff(data):
+    result = json.dumps(data, indent=2)
+    result = result.replace('"', '')
+    result = result.replace(',', '')
+    return result
 
 
 if __name__ == "__main__":
-    print(print_diff(data))
+    show_diff(plain_data)
+    show_diff(nested_data)
