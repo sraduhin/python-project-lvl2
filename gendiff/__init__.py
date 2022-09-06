@@ -1,3 +1,3 @@
-from gendiff.comparer import generate_diff
+from gendiff.comparer import run_diff
 
-__all__ = ['generate_diff']
+__all__ = ['run_diff']

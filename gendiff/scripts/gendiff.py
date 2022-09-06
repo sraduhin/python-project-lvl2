@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import argparse
 
-from gendiff import generate_diff
+from gendiff import run_diff
 
 
 def main():
@@ -13,7 +13,7 @@ def main():
 
     args = parser.parse_args()
 
-    diff = generate_diff(args.first_file, args.second_file)
+    diff = run_diff(args.first_file, args.second_file)
     print(diff)
 
 

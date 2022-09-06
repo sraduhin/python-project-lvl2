@@ -12,7 +12,6 @@ def parser(filepath):
         if filepath.split('.')[1] not in (JSON_EXTENSIONS + YAML_EXTENSIONS):
             file_name = filepath.split('/').pop()
             raise ValueError(f'enexpected extension of the file: {file_name}')
-
         with open(filepath, 'r') as f:
             if filepath.split('.')[1] in JSON_EXTENSIONS:
                 return json.load(f)
@@ -22,4 +21,5 @@ def parser(filepath):
 
 
 if __name__ == '__main__':
-    print(parser('gendiff/files/file1.json'))
+    assert (parser('tests/fixtures/simple/file1.json')) == (parser('tests/fixtures/simple/file1.yml'))
+    assert (parser('tests/fixtures/nested/file1.yaml')) == (parser('tests/fixtures/nested/file1.yaml'))
