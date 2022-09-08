@@ -56,14 +56,22 @@ def test_generate_diff_nested():
     assert generate_diff(data1, data2) == NESTED_RESULT
 
 
+<<<<<<< HEAD
 def test_show_diff_simple_stylish():
+=======
+def test_show_diff_simple():
+>>>>>>> 5cc3fcdaed7a8b308cb2b2cfec142ddd52ff0537
     pathfile = 'tests/fixtures/simple/result_stylish'
     with open(pathfile, 'r') as f:
         result = f.read()
         assert show_diff_stylish(SIMPLE_RESULT) == result
 
 
+<<<<<<< HEAD
 def test_show_diff_nested_stylish():
+=======
+def test_show_diff_nested():
+>>>>>>> 5cc3fcdaed7a8b308cb2b2cfec142ddd52ff0537
     pathfile = 'tests/fixtures/nested/result_stylish'
     with open(pathfile, 'r') as f:
         result = f.read()
