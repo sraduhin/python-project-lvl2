@@ -4,10 +4,9 @@ from gendiff.printer import show_diff_stylish
 import pytest
 
 
-SIMPLE_RESULT = {'follow': {'action': 'removed', 'value': False}, 'host': {'value': 'hexlet.io'}, 'proxy': {'action': 'removed', 'value': '123.234.53.22'}, 'timeout': {'action': 'updated', 'From': 50, 'to': 20}, 'verbose': {'action': 'added', 'value': True}}
+SIMPLE_RESULT = [('follow', 'remove', False), ('host', None, 'hexlet.io'), ('proxy', 'remove', '123.234.53.22'), ('timeout', 'update', (50, 20)), ('verbose', 'add', True)]
 
-NESTED_RESULT = {'common': {'follow': {'action': 'added', 'value': False}, 'setting1': {'value': 'Value 1'}, 'setting2': {'action': 'removed', 'value': 200}, 'setting3': {'action': 'updated', 'From': True, 'to': None}, 'setting4': {'action': 'added', 'value': 'blah blah'}, 'setting5': {'action': 'added', 'value': {'key5': 'value5'}}, 'setting6': {'doge': {'wow': {'action': 'updated', 'From': '', 'to': 'so much'}}, 'key': {'value': 'value'}, 'ops': {'action': 'added', 'value': 'vops'}}}, 'group1': {'baz': {'action': 'updated', 'From': 'bas', 'to': 'bars'}, 'foo': {'value': 'bar'}, 'nest': {'action': 'updated', 'From': {'key': 'value'}, 'to': 'str'}}, 'group2': {'action': 'removed', 'value': {'abc': 12345, 'deep': {'id': 45}}}, 'group3': {'action': 'added', 'value': {'deep': {'id': {'number': 45}}, 'fee': 100500}}}
-
+NESTED_RESULT = [('common', None, [('follow', 'add', False), ('setting1', None, 'Value 1'), ('setting2', 'remove', 200), ('setting3', 'update', (True, None)), ('setting4', 'add', 'blah blah'), ('setting5', 'add', [('key5', None, 'value5')]), ('setting6', None, [('doge', None, [('wow', 'update', ('', 'so much'))]), ('key', None, 'value'), ('ops', 'add', 'vops')])]), ('group1', None, [('baz', 'update', ('bas', 'bars')), ('foo', None, 'bar'), ('nest', 'update', ([('key', None, 'value')], 'str'))]), ('group2', 'remove', [('abc', None, 12345), ('deep', None, [('id', None, 45)])]), ('group3', 'add', [('deep', None, [('id', None, [('number', None, 45)])]), ('fee', None, 100500)])]
 
 def test_parser_path():
     pathfile = 'tests/fixtures/bad.path'
@@ -72,3 +71,8 @@ def test_show_diff_nested():
     with open(pathfile, 'r') as f:
         result = f.read()
         assert show_diff_stylish(NESTED_RESULT) == result
+
+if __name__ == "__main__":
+    test_parser_path()
+    test_parser_extension()
+    test_parser_simple_json()
