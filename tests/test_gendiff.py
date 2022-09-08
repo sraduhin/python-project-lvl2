@@ -57,17 +57,14 @@ def test_generate_diff_nested():
 
 
 def test_show_diff_simple():
-    pathfile = 'tests/fixtures/simple/result'
+    pathfile = 'tests/fixtures/simple/result_stylish'
     with open(pathfile, 'r') as f:
         result = f.read()
-        print(result)
-        print('>>>')
-        print(show_diff_stylish(SIMPLE_RESULT))
         assert show_diff_stylish(SIMPLE_RESULT) == result
 
 
 def test_show_diff_nested():
-    pathfile = 'tests/fixtures/nested/result'
+    pathfile = 'tests/fixtures/nested/result_stylish'
     with open(pathfile, 'r') as f:
         result = f.read()
         assert show_diff_stylish(NESTED_RESULT) == result
