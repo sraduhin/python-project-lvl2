@@ -39,7 +39,7 @@ def generate_diff(data1, data2):
             result[key]['value'] = data1[key]
         elif key in data1 and key in data2:
             if isinstance(data1[key], dict) and isinstance(data2[key], dict):
-                result[key] = generate_diff(data1[key], data2[key])
+                result[key]['children'] = generate_diff(data1[key], data2[key])
             else:
                 result[key] = {'action': 'updated', 'From': data1[key],
                                'to': data2[key]}
