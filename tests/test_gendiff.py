@@ -1,6 +1,6 @@
 from gendiff.comparer import generate_diff
 from gendiff.parser.parser import parser
-from gendiff.printer import show_diff_stylish
+from gendiff.printer import show_diff_stylish, show_diff_plain
 import pytest
 
 
@@ -56,23 +56,29 @@ def test_generate_diff_nested():
     assert generate_diff(data1, data2) == NESTED_RESULT
 
 
-def test_show_diff_simple():
-    pathfile = 'tests/fixtures/simple/result'
+def test_show_diff_simple_stylish():
+    pathfile = 'tests/fixtures/simple/result_stylish'
     with open(pathfile, 'r') as f:
         result = f.read()
-        print(result)
-        print('>>>')
-        print(show_diff_stylish(SIMPLE_RESULT))
         assert show_diff_stylish(SIMPLE_RESULT) == result
 
 
-def test_show_diff_nested():
-    pathfile = 'tests/fixtures/nested/result'
+def test_show_diff_nested_stylish():
+    pathfile = 'tests/fixtures/nested/result_stylish'
     with open(pathfile, 'r') as f:
         result = f.read()
         assert show_diff_stylish(NESTED_RESULT) == result
 
-if __name__ == "__main__":
-    test_parser_path()
-    test_parser_extension()
-    test_parser_simple_json()
+
+def test_show_diff_simple_plain():
+    pathfile = 'tests/fixtures/simple/result_plain'
+    with open(pathfile, 'r') as f:
+        result = f.read()
+        assert show_diff_stylish(SIMPLE_RESULT) == result
+
+
+def test_show_diff_nested_plain():
+    pathfile = 'tests/fixtures/nested/result_plain'
+    with open(pathfile, 'r') as f:
+        result = f.read()
+        assert show_diff_stylish(NESTED_RESULT) == result
