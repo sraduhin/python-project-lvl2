@@ -7,7 +7,7 @@ def make_cosmetics(data):
         return f'{data}'.lower()
     if isinstance(data, int):
         return data
-    if not data:
+    if data is None:
         return 'null'
     return '[complex value]' if has_inner_tree(data) else f"'{data}'"
 
@@ -19,16 +19,18 @@ def get_property(prefix, key):
 def main(data):
     actions = ['add', 'remove', 'update']
 
-    def make_diff_by_action(data, prefix=''):
+    def make_diff_by_action(data, depth=[]):
         result = ''
         for item in data:
             key, action, value = item
             if action not in actions:
                 if has_inner_tree(value):
-                    prefix = get_property(prefix, key)
-                    result += make_diff_by_action(value, prefix)
+                    depth.append(key)
+                    result += make_diff_by_action(value, depth)
+                    depth.pop()
                 continue
-            result += f"Property '{get_property(prefix, key)}' was "
+            depth.append(key)
+            result += f"Property '{'.'.join(depth)}' was "
             if action == 'add':
                 result += f"added with value: {make_cosmetics(value)}\n"
             elif action == 'remove':
@@ -36,6 +38,7 @@ def main(data):
             elif action == 'update':
                 result += f"updated. From {make_cosmetics(value[0])} "
                 result += f"to {make_cosmetics(value[1])}\n"
+            depth.pop()
         return result
     return make_diff_by_action(data)[:-1]  # [:-1] cut last \n
 
