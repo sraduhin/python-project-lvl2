@@ -1,6 +1,7 @@
 from gendiff.comparer import generate_diff
 from gendiff.parser.parser import parser
-from gendiff.printer import show_diff_stylish, show_diff_plain
+from gendiff.formatter.stylish import main as show_diff_stylish
+from gendiff.formatter.plain import main as show_diff_plain
 import pytest
 
 
@@ -63,7 +64,6 @@ def test_show_diff_simple_stylish():
         assert show_diff_stylish(SIMPLE_RESULT) == result
 
 
-
 def test_show_diff_nested_stylish():
     pathfile = 'tests/fixtures/nested/result_stylish'
     with open(pathfile, 'r') as f:
@@ -75,11 +75,17 @@ def test_show_diff_simple_plain():
     pathfile = 'tests/fixtures/simple/result_plain'
     with open(pathfile, 'r') as f:
         result = f.read()
-        assert show_diff_stylish(SIMPLE_RESULT) == result
+        print(result)
+        print('>>>')
+        print(show_diff_plain(SIMPLE_RESULT))
+        assert show_diff_plain(SIMPLE_RESULT) == result
 
 
 def test_show_diff_nested_plain():
     pathfile = 'tests/fixtures/nested/result_plain'
     with open(pathfile, 'r') as f:
         result = f.read()
-        assert show_diff_stylish(NESTED_RESULT) == result
+        print(result)
+        print('>>>')
+        print(show_diff_plain(NESTED_RESULT))
+        assert show_diff_plain(NESTED_RESULT) == result

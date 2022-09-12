@@ -13,7 +13,7 @@ def main():
 
     args = parser.parse_args()
 
-    diff = run_diff(args.first_file, args.second_file)
+    diff = run_diff(args.first_file, args.second_file, args.format)
     print(diff)
 
 

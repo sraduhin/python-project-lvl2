@@ -1,9 +1,11 @@
 from gendiff.parser.parser import parser
-from gendiff.printer import show_diff_stylish
+from gendiff.formatter.stylish import main as show_diff_stylish
+from gendiff.formatter.plain import main as show_diff_plain
 
 
 def has_children(data):
     return isinstance(data, dict)
+
 
 def place_nested_data(data):
     place_data = []
@@ -32,11 +34,15 @@ def generate_diff(data1, data2):
     return result
 
 
-def run_diff(filepath1, filepath2):
+def run_diff(filepath1, filepath2, format='stylish'):
     data1 = parser(filepath1)
     data2 = parser(filepath2)
     result = generate_diff(data1, data2)
-    return show_diff_stylish(result)
+    if format == 'stylish':
+        return show_diff_stylish(result)
+    elif format == 'plain':
+        return show_diff_plain(result)
+    raise ValueError(f"Unknown format: {format}")
 
 
 if __name__ == '__main__':
