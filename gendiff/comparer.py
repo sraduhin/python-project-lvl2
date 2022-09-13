@@ -8,11 +8,11 @@ def has_children(data):
 
 
 def place_nested_data(data):
-    place_data = []
+    nested_data = []
     if has_children(data):
         for key in data.keys():
-            place_data.append((key, None, place_nested_data(data.get(key))))
-        return place_data
+            nested_data.append((key, None, place_nested_data(data.get(key))))
+        return nested_data
     else:
         return data
 
