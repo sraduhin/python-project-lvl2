@@ -2,40 +2,32 @@ import json
 import re
 
 
-'''def get_action(action):
-    return {None: ' ', 'add': '+', 'remove': '-'}[action]'''
+def get_action(action):
+    return {None: ' ', 'add': '+', 'remove': '-'}[action]
 
 
-def has_children(data):
-    return isinstance(data, dict)
+def has_inner_tree(data):
+    return isinstance(data, list)
 
 
-def make_tree(data):
-    if not has_children(data):
+def make_diff(data):
+    if not has_inner_tree(data):
         return data
     result = {}
-    for key, value in data.keys():
+    for item in data:
         key, action, value = item
         if action == 'update':
-            result[f'- {key}'] = make_tree(value['old_value'])
-            result[f'+ {key}'] = make_tree(value['new_value'])
+            result[f'- {key}'] = make_diff(value[0])
+            result[f'+ {key}'] = make_diff(value[1])
         else:
-            result[f'{value["action"]} {key}'] = make_tree(value)
-    return result
-
-
-def stringify(data):
-    result = json.dumps(data, indent=4)
-    result = result.replace('"', '')
-    result = result.replace(',', '')
-    result = result.replace('  }', '    }')
-    result = re.sub(r"\n\s\s", '\n', result)
+            action = get_action(action)
+            result[f'{action} {key}'] = make_diff(value)
     return result
 
 
 def main(data):
-    result = make_tree(data)
-    return stringify(result)
+    result = make_diff(data)
+    return json.dumps(result)
 
 
 if __name__ == "__main__":

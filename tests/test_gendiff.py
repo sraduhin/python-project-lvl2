@@ -17,7 +17,7 @@ def test_parser_path():
 
 
 def test_parser_extension():
-    pathfile = get_path('file1.bad_ext')
+    pathfile = get_path('simple/file1.bad_ext')
     with pytest.raises(ValueError, match='enexpected extension of the file: file1.bad_ext'):
         parser(pathfile)
 
@@ -58,29 +58,8 @@ def test_generate_diff_nested():
     assert generate_diff(data1, data2) == expected.NESTED_REPR
 
 
-def test_show_diff_simple_stylish():
-    pathfile = get_path('simple/result_stylish')
-    with open(pathfile, 'r') as f:
-        result = f.read()
-        assert show_diff_stylish(expected.SIMPLE_REPR) == result
-
-
-def test_show_diff_nested_stylish():
-    pathfile = get_path('nested/result_stylish')
-    with open(pathfile, 'r') as f:
-        result = f.read()
-        assert show_diff_stylish(expected.NESTED_REPR) == result
-
-
-def test_show_diff_simple_plain():
-    pathfile = get_path('simple/result_plain')
-    with open(pathfile, 'r') as f:
-        result = f.read()
-        assert show_diff_plain(expected.SIMPLE_REPR) == result
-
-
-def test_show_diff_nested_plain():
-    pathfile = get_path('nested/result_plain')
-    with open(pathfile, 'r') as f:
-        result = f.read()
-        assert show_diff_plain(expected.NESTED_REPR) == result
+def test_show_diff():
+    assert show_diff_stylish(expected.SIMPLE_REPR) == expected.SIMPLE_DATA_RESULT_STYLISH
+    assert show_diff_stylish(expected.NESTED_REPR) == expected.NESTED_DATA_RESULT_STYLISH
+    assert show_diff_plain(expected.SIMPLE_REPR) == expected.SIMPLE_DATA_RESULT_PLAIN
+    assert show_diff_plain(expected.NESTED_REPR) == expected.NESTED_DATA_RESULT_PLAIN

@@ -7,30 +7,40 @@ def has_children(data):
     return isinstance(data, dict)
 
 
-def place_nested_data(data):
-    nested_data = []
+def get_children_repr(data):
+    childrens = {}
     if has_children(data):
         for key in data.keys():
-            nested_data.append((key, None, place_nested_data(data.get(key))))
-        return nested_data
+            childrens[key] = get_children_repr(data.get(key))
+            #  childrens.append((key, None, get_children_repr(data.get(key))))
+        return childrens
     else:
         return data
 
 
 def generate_diff(data1, data2):
-    result = []
+    result = {}
     union_keys = sorted(set(data1.keys() | data2.keys()))  # перенести сортировку в конец программы
     for key in union_keys:
         if has_children(data1.get(key)) and has_children(data2.get(key)):
-            result.append((key, None, generate_diff(data1[key], data2[key])))
+            result[key] = { generate_diff(data1[key], data2[key])}
+            #  result.append((key, None, generate_diff(data1[key], data2[key])))
         elif data1.get(key) == data2.get(key):
-            result.append((key, None, place_nested_data(data1[key])))
+            result[key] = get_children_repr(data1[key])
+            #  result.append((key, None, get_children_repr(data1[key])))
         elif key in data1 and key in data2:
-            result.append((key, 'update', (place_nested_data(data1[key]), place_nested_data(data2[key]))))
+            action = 'update'
+            old_value = get_children_repr(data1[key])
+            new_value = get_children_repr(data2[key])
+            result[key] = {'action': action, 'old_value': old_value, 'new_value': new_value}
         elif key in data1:
-            result.append((key, 'remove', place_nested_data(data1[key])))
+            action = '-'
+            value = get_children_repr(data1[key])
+            result[key] = {'action': action, 'value': value}
         else:
-            result.append((key, 'add', place_nested_data(data2[key])))
+            action = '+'
+            value = get_children_repr(data2[key])
+            result[key] = {'action': action, 'value': value}
     return result
 
 
