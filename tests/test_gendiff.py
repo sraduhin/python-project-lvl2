@@ -17,7 +17,7 @@ def test_parser_path():
 
 
 def test_parser_extension():
-    pathfile = get_path('file1.bad_ext')
+    pathfile = get_path('simple/file1.bad_ext')
     with pytest.raises(ValueError, match='enexpected extension of the file: file1.bad_ext'):
         parser(pathfile)
 
