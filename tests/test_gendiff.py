@@ -58,25 +58,25 @@ def test_show_diff_simple_stylish():
     pathfile = 'tests/fixtures/simple/result_stylish'
     with open(pathfile, 'r') as f:
         result = f.read()
-        assert show_diff_stylish(SIMPLE_RESULT) == result
+        assert show_diff_stylish(expected.SIMPLE_REPR) == result
 
 
 def test_show_diff_nested_stylish():
     pathfile = 'tests/fixtures/nested/result_stylish'
     with open(pathfile, 'r') as f:
         result = f.read()
-        assert show_diff_stylish(NESTED_RESULT) == result
+        assert show_diff_stylish(expected.NESTED_REPR) == result
 
 
 def test_show_diff_simple_plain():
     pathfile = 'tests/fixtures/simple/result_plain'
     with open(pathfile, 'r') as f:
         result = f.read()
-        assert show_diff_plain(SIMPLE_RESULT) == result
+        assert show_diff_plain(expected.SIMPLE_REPR) == result
 
 
 def test_show_diff_nested_plain():
     pathfile = 'tests/fixtures/nested/result_plain'
     with open(pathfile, 'r') as f:
         result = f.read()
-        assert show_diff_plain(NESTED_RESULT) == result
+        assert show_diff_plain(expected.NESTED_REPR) == result
