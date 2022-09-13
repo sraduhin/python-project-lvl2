@@ -48,7 +48,7 @@ def main(filepath1, filepath2, format='stylish'):
     data1 = parser(filepath1)
     data2 = parser(filepath2)
     result = generate_diff(data1, data2)
-    if format == 'stylish':
+    if format == 'stylish' or format is None:
         return show_diff_stylish(result)
     elif format == 'plain':
         return show_diff_plain(result)
