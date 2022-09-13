@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import argparse
 
-from gendiff import run_diff
+from gendiff import main as run_diff
 
 
 def main():

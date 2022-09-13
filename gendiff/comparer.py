@@ -34,7 +34,7 @@ def generate_diff(data1, data2):
     return result
 
 
-def run_diff(filepath1, filepath2, format='stylish'):
+def main(filepath1, filepath2, format='stylish'):
     data1 = parser(filepath1)
     data2 = parser(filepath2)
     result = generate_diff(data1, data2)
@@ -46,8 +46,6 @@ def run_diff(filepath1, filepath2, format='stylish'):
 
 
 if __name__ == '__main__':
-    # run_diff('tests/fixtures/simple/file1.json', 'tests/fixtures/simple/file2.json')
-    # run_diff('tests/fixtures/nested/file1.json', 'tests/fixtures/nested/file2.json')
     print(generate_diff(parser('tests/fixtures/simple/file1.json'), parser('tests/fixtures/simple/file2.json')))
     print(generate_diff(parser('tests/fixtures/nested/file1.json'), parser('tests/fixtures/nested/file2.json')))
     assert generate_diff(parser('tests/fixtures/nested/file1.json'), parser('tests/fixtures/nested/file2.json')) == [('common', None, [('follow', 'add', False), ('setting1', None, 'Value 1'), ('setting2', 'remove', 200), ('setting3', 'update', (True, None)), ('setting4', 'add', 'blah blah'), ('setting5', 'add', [('key5', None, 'value5')]), ('setting6', None, [('doge', None, [('wow', 'update', ('', 'so much'))]), ('key', None, 'value'), ('ops', 'add', 'vops')])]), ('group1', None, [('baz', 'update', ('bas', 'bars')), ('foo', None, 'bar'), ('nest', 'update', ([('key', None, 'value')], 'str'))]), ('group2', 'remove', [('abc', None, 12345), ('deep', None, [('id', None, 45)])]), ('group3', 'add', [('deep', None, [('id', None, [('number', None, 45)])]), ('fee', None, 100500)])]

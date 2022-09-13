@@ -5,9 +5,13 @@ from gendiff.formatter.plain import main as show_diff_plain
 import pytest
 import tests.expected_data as expected
 
+@pytest.fixture
+def get_path(endpath):
+    return 'tests/fixtures/' + endpath
+
 
 def test_parser_path():
-    pathfile = 'tests/fixtures/bad.path'
+    pathfile = get_path(bad.path)
     with pytest.raises(ValueError, match=f"{pathfile} doesn't exists"):
         parser(pathfile)
 

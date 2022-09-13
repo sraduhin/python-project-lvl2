@@ -1,3 +1,3 @@
-from gendiff.comparer import run_diff
+from gendiff.comparer import main
 
-__all__ = ['run_diff']
+__all__ = ['main']
