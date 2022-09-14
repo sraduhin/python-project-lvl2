@@ -28,7 +28,7 @@ def compare(data1, data2):
 def generate_diff(filepath1, filepath2, format='stylish'):
     data1 = parser(filepath1)
     data2 = parser(filepath2)
-    result = generate_diff(data1, data2)
+    result = compare(data1, data2)
     if format == 'stylish' or format is None:
         return show_diff_stylish(result)
     elif format == 'plain':
