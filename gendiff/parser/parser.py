@@ -18,8 +18,3 @@ def parser(filepath):
             if filepath.split('.')[1] in YAML_EXTENSIONS:
                 return yaml.safe_load(f)
     raise ValueError(f"{filepath} doesn't exists")
-
-
-if __name__ == '__main__':
-    assert (parser('tests/fixtures/simple/file1.json')) == (parser('tests/fixtures/simple/file1.yml'))
-    assert (parser('tests/fixtures/nested/file1.yaml')) == (parser('tests/fixtures/nested/file1.yaml'))
