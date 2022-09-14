@@ -60,6 +60,9 @@ def test_generate_diff_nested():
 
 def test_show_diff():
     assert show_diff_stylish(expected.SIMPLE_REPR) == expected.SIMPLE_DATA_RESULT_STYLISH
+    print(show_diff_stylish(expected.NESTED_REPR))
+    print('>>>')
+    print(expected.NESTED_DATA_RESULT_STYLISH)
     assert show_diff_stylish(expected.NESTED_REPR) == expected.NESTED_DATA_RESULT_STYLISH
     assert show_diff_plain(expected.SIMPLE_REPR) == expected.SIMPLE_DATA_RESULT_PLAIN
     assert show_diff_plain(expected.NESTED_REPR) == expected.NESTED_DATA_RESULT_PLAIN

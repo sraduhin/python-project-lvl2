@@ -1,13 +1,13 @@
-#from gendiff.parser.parser import parser
-#from gendiff.formatter.stylish import main as show_diff_stylish
-#from gendiff.formatter.plain import main as show_diff_plain
+from gendiff.parser.parser import parser
+from gendiff.formatter.stylish import main as show_diff_stylish
+from gendiff.formatter.plain import main as show_diff_plain
 
 
 def generate_diff(data1, data2):
     result = {}
     union_keys = sorted(set(data1.keys() | data2.keys()))  # перенести сортировку в конец программы
     for key in union_keys:
-        if isinstance(data1.get(key)), dict) and isinstance(data2.get(key)):
+        if isinstance(data1.get(key), dict) and isinstance(data2.get(key), dict):
             result[key] = generate_diff(data1[key], data2[key])
         elif data1.get(key) == data2.get(key):
             result[key] = data1.get(key)
