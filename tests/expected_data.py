@@ -1,129 +1,97 @@
 SIMPLE_REPR = {
     'follow': {
-        'action': '-',
-        'value': False
-    },
-    'host': {
-        'value': 'hexlet.io'
-    },
+        'action': '-', 'value': False
+        },
+    'host': 'hexlet.io', 
     'proxy': {
-        'action': '-',
+        'action': '-', 
         'value': '123.234.53.22'
-    },
+    }, 
     'timeout': {
-        'action': 'update',
-        'old_value': 50,
+        'action': 'update', 
+        'old_value': 50, 
         'new_value': 20
-    },
+    }, 
     'verbose': {
-        'action': '+',
+        'action': '+', 
         'value': True
     }
 }
 
 NESTED_REPR = {
     'common': {
-        'value': {
-            'follow': {
-                'action': '+', 'value': False
-            },
-            'setting1': {
-                'value': False
-            },
-            'setting2': {
-                'action': '-',
-                'value': 200
-            },
-            'setting3': {
-                'action': 'update',
-                'old_value': True,
-                'new_value': None
-            },
-            'setting4': {
-                'action': '+',
-                'value': 'blah blah'
-            },
-            'setting5': {
-                'action': '+',
-                'value': {
-                    'key5': {
-                            'value': 'value5'
-                    }
+        'follow': {
+            'action': '+', 
+            'value': False
+        }, 
+        'setting1': 'Value 1', 
+        'setting2': {
+            'action': '-', 
+            'value': 200
+        }, 
+        'setting3': {
+            'action': 'update', 
+            'old_value': True, 
+            'new_value': None
+        }, 
+        'setting4': {
+            'action': '+', 
+            'value': 'blah blah'
+            }, 
+        'setting5': {
+            'action': '+', 
+            'value': {
+                'key5': 'value5'
+            }
+        }, 
+        'setting6': {
+            'doge': {
+                'wow': {
+                    'action': 'update', 
+                    'old_value': '', 
+                    'new_value': 'so much'
                 }
-            },
-            'setting6': {
-                'value': {
-                    'doge': {
-                        'value': {
-                            'wow': {
-                                'action': 'update',
-                                'old_value': '',
-                                'new_value': 'so much'
-                            },
-                            'key': {
-                                'value': 'value'
-                            },
-                            'ops': {
-                                'action': '+',
-                                'value': 'vops'
-                            }
-                        }
-                    }
-                }
+            }, 
+            'key': 'value', 
+            'ops': {
+                'action': '+', 
+                'value': 'vops'
             }
         }
-    },
+    }, 
     'group1': {
-        'value': {
-            'baz': {
-                'action': 'update',
-                'old_value': 'bas',
-                'new_value': 'bars'
+        'baz': {
+            'action': 'update', 
+            'old_value': 'bas', 
+            'new_value': 'bars'
+        }, 
+        'foo': 'bar', 
+        'nest': {
+            'action': 'update', 
+            'old_value': {
+                'key': 'value'
             },
-            'foo': {
-                'value': 'bar'
-            },
-            'nest': {
-                'action': 'update',
-                'old_value': {
-                    'key': {
-                        'value': 'value'
-                    }
-                },
-                'new_value': 'str'
-            }
+            'new_value': 'str'
         }
-    },
+    }, 
     'group2': {
-        'action': '-',
+        'action': '-', 
         'value': {
-            'abs': {
-                'value': 12345
-            },
+            'abc': 12345, 
             'deep': {
-                'value': {
-                    'id': {
-                        'value': 45
-                    }
-                }
+                'id': 45
             }
         }
-    },
+    }, 
     'group3': {
-        'action': '+',
+        'action': '+', 
         'value': {
             'deep': {
-                'value': {
-                    'id': {
-                        'number': {
-                            'value': 45
-                        }
-                    }
+                'id': {
+                    'number': 45
                 }
-            },
-            'fee': {
-                'value': 100500
-            }
+            }, 
+            'fee': 100500
         }
     }
 }
@@ -161,6 +129,7 @@ NESTED_PARSED_DATA = {
         }
     }
 }
+
 
 SIMPLE_DATA_RESULT_PLAIN = '''Property 'follow' was removed
 Property 'proxy' was removed

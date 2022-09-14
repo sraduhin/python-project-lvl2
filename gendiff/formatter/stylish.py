@@ -2,25 +2,26 @@ import json
 import re
 
 
-'''def get_action(action):
-    return {None: ' ', 'add': '+', 'remove': '-'}[action]'''
-
-
 def has_children(data):
     return isinstance(data, dict)
 
 
 def make_tree(data):
+    result = {}
     if not has_children(data):
         return data
-    result = {}
-    for key, value in data.keys():
-        key, action, value = item
-        if action == 'update':
-            result[f'- {key}'] = make_tree(value['old_value'])
-            result[f'+ {key}'] = make_tree(value['new_value'])
+    for key, value in data.items():
+        if not has_children(value):
+            result[f'  {key}'] = value
+        elif not data[key].get('action'):
+            result[f'  {key}'] = make_tree(value)
         else:
-            result[f'{value["action"]} {key}'] = make_tree(value)
+            action = data[key].get('action')
+            if action == 'update':
+                result[f'- {key}'] = value['old_value']
+                result[f'+ {key}'] = value['new_value']
+            else:
+                result[f'{action} {key}'] = value['value']
     return result
 
 
@@ -39,8 +40,9 @@ def main(data):
 
 
 if __name__ == "__main__":
-    SIMPLE_RESULT = [('follow', 'remove', False), ('host', None, 'hexlet.io'), ('proxy', 'remove', '123.234.53.22'), ('timeout', 'update', (50, 20)), ('verbose', 'add', True)]
+    import
+    SIMPLE_REPR = {'follow': {'action': '-', 'value': False}, 'host': 'hexlet.io', 'proxy': {'action': '-', 'value': '123.234.53.22'}, 'timeout': {'action': 'update', 'old_value': 50, 'new_value': 20}, 'verbose': {'action': '+', 'value': True}}
 
-    NESTED_RESULT = [('common', None, [('follow', 'add', False), ('setting1', None, 'Value 1'), ('setting2', 'remove', 200), ('setting3', 'update', (True, None)), ('setting4', 'add', 'blah blah'), ('setting5', 'add', [('key5', None, 'value5')]), ('setting6', None, [('doge', None, [('wow', 'update', ('', 'so much'))]), ('key', None, 'value'), ('ops', 'add', 'vops')])]), ('group1', None, [('baz', 'update', ('bas', 'bars')), ('foo', None, 'bar'), ('nest', 'update', ([('key', None, 'value')], 'str'))]), ('group2', 'remove', [('abc', None, 12345), ('deep', None, [('id', None, 45)])]), ('group3', 'add', [('deep', None, [('id', None, [('number', None, 45)])]), ('fee', None, 100500)])]
-    print(main(SIMPLE_RESULT))
-    print(main(NESTED_RESULT))
+    NESTED_REPR = {'common': {'follow': {'action': '+', 'value': False}, 'setting1': 'Value 1', 'setting2': {'action': '-', 'value': 200}, 'setting3': {'action': 'update', 'old_value': True, 'new_value': None}, 'setting4': {'action': '+', 'value': 'blah blah'}, 'setting5': {'action': '+', 'value': {'key5': 'value5'}}, 'setting6': {'doge': {'wow': {'action': 'update', 'old_value': '', 'new_value': 'so much'}}, 'key': 'value', 'ops': {'action': '+', 'value': 'vops'}}}, 'group1': {'baz': {'action': 'update', 'old_value': 'bas', 'new_value': 'bars'}, 'foo': 'bar', 'nest': {'action': 'update', 'old_value': {'key': 'value'}, 'new_value': 'str'}}, 'group2': {'action': '-', 'value': {'abc': 12345, 'deep': {'id': 45}}}, 'group3': {'action': '+', 'value': {'deep': {'id': {'number': 45}}, 'fee': 100500}}}
+    print(main(SIMPLE_REPR))
+    print(main(NESTED_REPR))

@@ -49,18 +49,12 @@ def test_parser_nested_yml():
 def test_generate_diff_simple():
     data1 = parser('tests/fixtures/simple/file1.json')
     data2 = parser('tests/fixtures/simple/file2.json')
-    print(generate_diff(data1, data2))
-    print('>>>')
-    print(expected.SIMPLE_REPR)
     assert generate_diff(data1, data2) == expected.SIMPLE_REPR
 
 
 def test_generate_diff_nested():
     data1 = parser('tests/fixtures/nested/file1.json')
     data2 = parser('tests/fixtures/nested/file2.json')
-    print(generate_diff(data1, data2))
-    print('>>>')
-    print(expected.NESTED_REPR)
     assert generate_diff(data1, data2) == expected.NESTED_REPR
 
 

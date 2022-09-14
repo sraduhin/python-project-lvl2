@@ -1,5 +1,4 @@
 import json
-import re
 
 
 def get_action(action):
