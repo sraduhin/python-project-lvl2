@@ -1,10 +1,25 @@
-SIMPLE_REPR = [
-    ('follow', 'remove', False),
-    ('host', None, 'hexlet.io'),
-    ('proxy', 'remove', '123.234.53.22'),
-    ('timeout', 'update', (50, 20)),
-    ('verbose', 'add', True)
-]
+SIMPLE_REPR = {
+    'follow': {
+        'action': '-',
+        'value': False
+    },
+    'host': {
+        'value': 'hexlet.io'
+    },
+    'proxy': {
+        'action': '-',
+        'value': '123.234.53.22'
+    },
+    'timeout': {
+        'action': 'update',
+        'old_value': 50,
+        'new_value': 20
+    },
+    'verbose': {
+        'action': '+',
+        'value': True
+    }
+}
 
 NESTED_REPR = {
     'common': {

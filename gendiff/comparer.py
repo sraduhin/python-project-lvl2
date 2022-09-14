@@ -23,10 +23,10 @@ def generate_diff(data1, data2):
     union_keys = sorted(set(data1.keys() | data2.keys()))  # перенести сортировку в конец программы
     for key in union_keys:
         if has_children(data1.get(key)) and has_children(data2.get(key)):
-            result[key] = { generate_diff(data1[key], data2[key])}
+            result[key] = generate_diff(data1[key], data2[key])
             #  result.append((key, None, generate_diff(data1[key], data2[key])))
         elif data1.get(key) == data2.get(key):
-            result[key] = get_children_repr(data1[key])
+            result[key] = {'value': get_children_repr(data1[key])}
             #  result.append((key, None, get_children_repr(data1[key])))
         elif key in data1 and key in data2:
             action = 'update'
