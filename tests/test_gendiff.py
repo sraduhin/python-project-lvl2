@@ -1,4 +1,4 @@
-from gendiff.comparer import generate_diff
+from gendiff.comparer import compare
 from gendiff.parser.parser import parser
 from gendiff.formatter.stylish import main as show_diff_stylish
 from gendiff.formatter.plain import main as show_diff_plain
@@ -50,13 +50,13 @@ def test_parser_nested_yml():
 def test_generate_diff_simple():
     data1 = parser('tests/fixtures/simple/file1.json')
     data2 = parser('tests/fixtures/simple/file2.json')
-    assert generate_diff(data1, data2) == expected.SIMPLE_REPR
+    assert compare(data1, data2) == expected.SIMPLE_REPR
 
 
 def test_generate_diff_nested():
     data1 = parser('tests/fixtures/nested/file1.json')
     data2 = parser('tests/fixtures/nested/file2.json')
-    assert generate_diff(data1, data2) == expected.NESTED_REPR
+    assert compare(data1, data2) == expected.NESTED_REPR
 
 
 def test_show_diff():

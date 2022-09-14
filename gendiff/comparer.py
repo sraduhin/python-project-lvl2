@@ -4,12 +4,12 @@ from gendiff.formatter.plain import main as show_diff_plain
 from gendiff.formatter.json import main as show_diff_json
 
 
-def generate_diff(data1, data2):
+def compare(data1, data2):
     result = {}
     union_keys = sorted(set(data1.keys() | data2.keys()))
     for key in union_keys:
         if isinstance(data1.get(key), dict) & isinstance(data2.get(key), dict):
-            result[key] = generate_diff(data1[key], data2[key])
+            result[key] = compare(data1[key], data2[key])
         elif data1.get(key) == data2.get(key):
             result[key] = data1.get(key)
         elif key in data1 and key in data2:
@@ -25,7 +25,7 @@ def generate_diff(data1, data2):
     return result
 
 
-def main(filepath1, filepath2, format='stylish'):
+def generate_diff(filepath1, filepath2, format='stylish'):
     data1 = parser(filepath1)
     data2 = parser(filepath2)
     result = generate_diff(data1, data2)
