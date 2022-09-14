@@ -1,19 +1,19 @@
 SIMPLE_REPR = {
     'follow': {
         'action': '-', 'value': False
-        },
-    'host': 'hexlet.io', 
+    },
+    'host': 'hexlet.io',
     'proxy': {
-        'action': '-', 
+        'action': '-',
         'value': '123.234.53.22'
-    }, 
+    },
     'timeout': {
-        'action': 'update', 
-        'old_value': 50, 
+        'action': 'update',
+        'old_value': 50,
         'new_value': 20
-    }, 
+    },
     'verbose': {
-        'action': '+', 
+        'action': '+',
         'value': True
     }
 }
@@ -21,76 +21,76 @@ SIMPLE_REPR = {
 NESTED_REPR = {
     'common': {
         'follow': {
-            'action': '+', 
+            'action': '+',
             'value': False
-        }, 
-        'setting1': 'Value 1', 
+        },
+        'setting1': 'Value 1',
         'setting2': {
-            'action': '-', 
+            'action': '-',
             'value': 200
-        }, 
+        },
         'setting3': {
-            'action': 'update', 
-            'old_value': True, 
+            'action': 'update',
+            'old_value': True,
             'new_value': None
-        }, 
+        },
         'setting4': {
-            'action': '+', 
+            'action': '+',
             'value': 'blah blah'
-            }, 
+        },
         'setting5': {
-            'action': '+', 
+            'action': '+',
             'value': {
                 'key5': 'value5'
             }
-        }, 
+        },
         'setting6': {
             'doge': {
                 'wow': {
-                    'action': 'update', 
-                    'old_value': '', 
+                    'action': 'update',
+                    'old_value': '',
                     'new_value': 'so much'
                 }
-            }, 
-            'key': 'value', 
+            },
+            'key': 'value',
             'ops': {
-                'action': '+', 
+                'action': '+',
                 'value': 'vops'
             }
         }
-    }, 
+    },
     'group1': {
         'baz': {
-            'action': 'update', 
-            'old_value': 'bas', 
+            'action': 'update',
+            'old_value': 'bas',
             'new_value': 'bars'
-        }, 
-        'foo': 'bar', 
+        },
+        'foo': 'bar',
         'nest': {
-            'action': 'update', 
+            'action': 'update',
             'old_value': {
                 'key': 'value'
             },
             'new_value': 'str'
         }
-    }, 
+    },
     'group2': {
-        'action': '-', 
+        'action': '-',
         'value': {
-            'abc': 12345, 
+            'abc': 12345,
             'deep': {
                 'id': 45
             }
         }
-    }, 
+    },
     'group3': {
-        'action': '+', 
+        'action': '+',
         'value': {
             'deep': {
                 'id': {
                     'number': 45
                 }
-            }, 
+            },
             'fee': 100500
         }
     }
@@ -130,7 +130,6 @@ NESTED_PARSED_DATA = {
     }
 }
 
-
 SIMPLE_DATA_RESULT_PLAIN = '''Property 'follow' was removed
 Property 'proxy' was removed
 Property 'timeout' was updated. From 50 to 20
@@ -143,6 +142,27 @@ SIMPLE_DATA_RESULT_STYLISH = '''{
   - timeout: 50
   + timeout: 20
   + verbose: true
+}'''
+
+SIMPLE_DATA_RESULT_JSON = '''{
+    "follow": {
+        "action": "-",
+        "value": false
+    },
+    "host": "hexlet.io",
+    "proxy": {
+        "action": "-",
+        "value": "123.234.53.22"
+    },
+    "timeout": {
+        "action": "update",
+        "old_value": 50,
+        "new_value": 20
+    },
+    "verbose": {
+        "action": "+",
+        "value": true
+    }
 }'''
 
 NESTED_DATA_RESULT_PLAIN = '''Property 'common.follow' was added with value: false
@@ -199,5 +219,83 @@ NESTED_DATA_RESULT_STYLISH = '''{
             }
         }
         fee: 100500
+    }
+}'''
+
+NESTED_DATA_RESULT_JSON = '''{
+    "common": {
+        "follow": {
+            "action": "+",
+            "value": false
+        },
+        "setting1": "Value 1",
+        "setting2": {
+            "action": "-",
+            "value": 200
+        },
+        "setting3": {
+            "action": "update",
+            "old_value": true,
+            "new_value": null
+        },
+        "setting4": {
+            "action": "+",
+            "value": "blah blah"
+        },
+        "setting5": {
+            "action": "+",
+            "value": {
+                "key5": "value5"
+            }
+        },
+        "setting6": {
+            "doge": {
+                "wow": {
+                    "action": "update",
+                    "old_value": "",
+                    "new_value": "so much"
+                }
+            },
+            "key": "value",
+            "ops": {
+                "action": "+",
+                "value": "vops"
+            }
+        }
+    },
+    "group1": {
+        "baz": {
+            "action": "update",
+            "old_value": "bas",
+            "new_value": "bars"
+        },
+        "foo": "bar",
+        "nest": {
+            "action": "update",
+            "old_value": {
+                "key": "value"
+            },
+            "new_value": "str"
+        }
+    },
+    "group2": {
+        "action": "-",
+        "value": {
+            "abc": 12345,
+            "deep": {
+                "id": 45
+            }
+        }
+    },
+    "group3": {
+        "action": "+",
+        "value": {
+            "deep": {
+                "id": {
+                    "number": 45
+                }
+            },
+            "fee": 100500
+        }
     }
 }'''

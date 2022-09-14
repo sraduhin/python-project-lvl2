@@ -2,7 +2,7 @@ from gendiff.comparer import compare
 from gendiff.parser.parser import parser
 from gendiff.formatter.stylish import main as show_diff_stylish
 from gendiff.formatter.plain import main as show_diff_plain
-from gendiff.formatter.plain import main as show_diff_json
+from gendiff.formatter.json import main as show_diff_json
 import pytest
 import tests.expected_data as expected
 
@@ -19,7 +19,8 @@ def test_parser_path():
 
 def test_parser_extension():
     pathfile = get_path('simple/file1.bad_ext')
-    with pytest.raises(ValueError, match='enexpected extension of the file: file1.bad_ext'):
+    with pytest.raises(ValueError,
+                       match='enexpected extension of the file: file1.bad_ext'):
         parser(pathfile)
 
 
@@ -60,9 +61,9 @@ def test_generate_diff_nested():
 
 
 def test_show_diff():
-    assert show_diff_stylish(expected.SIMPLE_REPR) == expected.SIMPLE_DATA_RESULT_STYLISH
-    assert show_diff_stylish(expected.NESTED_REPR) == expected.NESTED_DATA_RESULT_STYLISH
-    assert show_diff_plain(expected.SIMPLE_REPR) == expected.SIMPLE_DATA_RESULT_PLAIN
-    assert show_diff_plain(expected.NESTED_REPR) == expected.NESTED_DATA_RESULT_PLAIN
-    assert show_diff_json(expected.SIMPLE_REPR) == expected.SIMPLE_DATA_RESULT_PLAIN
-    assert show_diff_json(expected.NESTED_REPR) == expected.NESTED_DATA_RESULT_PLAIN
+    assert show_diff_stylish(expected.SIMPLE_REPR) == expected.SIMPLE_DATA_RESULT_STYLISH  # noqa:E501
+    assert show_diff_stylish(expected.NESTED_REPR) == expected.NESTED_DATA_RESULT_STYLISH  # noqa:E501
+    assert show_diff_plain(expected.SIMPLE_REPR) == expected.SIMPLE_DATA_RESULT_PLAIN  # noqa:E501
+    assert show_diff_plain(expected.NESTED_REPR) == expected.NESTED_DATA_RESULT_PLAIN  # noqa:E501
+    assert show_diff_json(expected.SIMPLE_REPR) == expected.SIMPLE_DATA_RESULT_JSON  # noqa:E501
+    assert show_diff_json(expected.NESTED_REPR) == expected.NESTED_DATA_RESULT_JSON  # noqa:E501
