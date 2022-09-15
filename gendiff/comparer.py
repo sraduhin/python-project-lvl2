@@ -5,6 +5,9 @@ from gendiff.formatter.json import main as show_diff_json
 
 
 def compare(data1, data2):
+    '''
+    function build dictionary representation diff files
+    '''
     result = {}
     union_keys = sorted(set(data1.keys() | data2.keys()))
     for key in union_keys:
@@ -26,6 +29,11 @@ def compare(data1, data2):
 
 
 def generate_diff(filepath1, filepath2, format='stylish'):
+    '''
+    run comparer and show result in format type
+    
+    raises: unknown format
+    '''
     data1 = parser(filepath1)
     data2 = parser(filepath2)
     result = compare(data1, data2)

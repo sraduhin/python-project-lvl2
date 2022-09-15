@@ -1,3 +1,4 @@
+# stylish formattef
 import json
 import re
 
@@ -7,6 +8,9 @@ def has_children(data):
 
 
 def make_tree(data):
+    '''
+    function rebuild dictionary representation
+    '''
     result = {}
     if not has_children(data):
         return data
@@ -26,6 +30,9 @@ def make_tree(data):
 
 
 def stringify(data):
+    '''
+    function cuts \' and fixes indents
+    '''
     result = json.dumps(data, indent=4)
     result = result.replace('"', '')
     result = result.replace(',', '')

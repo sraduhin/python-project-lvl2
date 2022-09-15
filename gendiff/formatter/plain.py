@@ -1,4 +1,8 @@
+# plain formatter
 def normalize(data):
+    '''
+    funcion convert bool to str, nested to "[complex value]"
+    '''
     if isinstance(data, bool):
         return f'{data}'.lower()
     if isinstance(data, int):
@@ -9,6 +13,9 @@ def normalize(data):
 
 
 def show_changes(data, depth=[]):
+    '''function makes raws kind of
+    
+    Property '{'.'.join(depth)}' was removed(added, updated)"'''
     result = ''
     for key, value in data.items():
         if not isinstance(value, dict):
@@ -31,4 +38,8 @@ def show_changes(data, depth=[]):
 
 
 def main(data):
+    '''main function
+    
+    cut last\n
+    '''
     return show_changes(data)[:-1]
