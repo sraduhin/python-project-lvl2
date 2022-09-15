@@ -14,7 +14,7 @@ def normalize(data):
 
 def show_changes(data, depth=[]):
     '''function makes raws kind of
-    
+
     Property '{'.'.join(depth)}' was removed(added, updated)"'''
     result = ''
     for key, value in data.items():
@@ -39,7 +39,7 @@ def show_changes(data, depth=[]):
 
 def main(data):
     '''main function
-    
+
     cut last\n
     '''
     return show_changes(data)[:-1]

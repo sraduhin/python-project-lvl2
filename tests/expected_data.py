@@ -130,11 +130,11 @@ NESTED_PARSED_DATA = {
     }
 }
 
-with open('tests/fixtures/result/plain', r) as f:
+with open('tests/fixtures/result/plain', 'r') as f:
     SIMPLE_DATA_RESULT_PLAIN, NESTED_DATA_RESULT_PLAIN = f.read().split('\n\n')
 
-with open('tests/fixtures/result/plain', r) as f:
-    SIMPLE_DATA_RESULT_STYLISH, NESTED_DATA_RESULT_STYLISH = f.read().split('\n\n')
-    
-with open('tests/fixtures/result/plain', r) as f:
+with open('tests/fixtures/result/stylish', 'r') as f:
+    SIMPLE_DATA_RESULT_STYLISH, NESTED_DATA_RESULT_STYLISH = f.read().split('\n\n') # noqa E501
+
+with open('tests/fixtures/result/json', 'r') as f:
     SIMPLE_DATA_RESULT_JSON, NESTED_DATA_RESULT_JSON = f.read().split('\n\n')

@@ -10,11 +10,11 @@ YAML_EXTENSIONS = ['yml', 'yaml']
 def parser(filepath):
     '''
     parse data by path
-    
+
     input: path string
-    
+
     output: file data
-    
+
     raises: wrong path, wrong extension
     '''
     if os.path.isfile(filepath):

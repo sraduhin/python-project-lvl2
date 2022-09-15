@@ -31,7 +31,7 @@ def compare(data1, data2):
 def generate_diff(filepath1, filepath2, format='stylish'):
     '''
     run comparer and show result in format type
-    
+
     raises: unknown format
     '''
     data1 = parser(filepath1)
