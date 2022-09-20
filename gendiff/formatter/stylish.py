@@ -27,7 +27,7 @@ def make_tree(data):
             result[f'  {key}'] = make_tree(value)
         else:
             type = data[key].get('type')
-            if type == 'updated':
+            if type == TYPES[2]:  # updated
                 result[f'- {key}'] = make_tree(value['old_value'])
                 result[f'+ {key}'] = make_tree(value['new_value'])
             else:

@@ -15,23 +15,23 @@ def compare(data1, data2):
             result[key] = compare(data1[key], data2[key])
         elif data1.get(key) == data2.get(key):
             result[key] = {
-                'type': 'no changes',
+                'type': TYPES[3],  # no changes
                 'value': data1.get(key)
             }
         elif key in data1 and key in data2:
             result[key] = {
-                'type': 'updated',
+                'type': TYPES[2],  # updated
                 'old_value': data1[key],
                 'new_value': data2[key]
             }
         elif key in data1:
             result[key] = {
-                'type': 'removed',
+                'type': TYPES[1],  # removed
                 'value': data1[key]
             }
         else:
             result[key] = {
-                'type': 'added',
+                'type': TYPES[0],  # added
                 'value': data2[key]
             }
     print('check result', result)

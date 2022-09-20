@@ -21,15 +21,15 @@ def show_changes(data, depth=[]):
     Property '{'.'.join(depth)}' was removed(added, updated)"'''
     result = ''
     for key, value in data.items():
-        if not isinstance(value, dict) or value.get('type') == 'no changes':
+        if not isinstance(value, dict) or value.get('type') == TYPES[3]:
             continue
         depth.append(key)
         if isinstance(value, dict) and value.get('type') in TYPES:
             type = value['type']
             result += f"Property '{'.'.join(depth)}' was {type}"
-            if type == 'added':
+            if type == TYPES[0]:  # added
                 result += f" with value: {normalize(value['value'])}\n"
-            elif type == 'removed':
+            elif type == TYPES[1]:  # removed
                 result += '\n'
             else:
                 result += f". From {normalize(value['old_value'])} "
