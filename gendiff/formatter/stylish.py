@@ -29,6 +29,7 @@ def make_tree(data):
                 result[f'- {key}'] = make_tree(value['old_value'])
                 result[f'+ {key}'] = make_tree(value['new_value'])
             else:
+                print('check value', value)
                 result[f'{get_type(type)} {key}'] = make_tree(value['value'])
     return result
 
