@@ -8,16 +8,3 @@ __pycache__/
 
 # dist
 dist/
-
-# Unit test / coverage
-htmlcov/
-.tox/
-.nox/
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-*.cover
-*.py,cover
-.hypothesis/
-.pytest_cache/
