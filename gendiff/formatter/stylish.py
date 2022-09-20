@@ -2,7 +2,7 @@
 import json
 import re
 
-TYPES = ['added', 'removed', 'updated', 'no changes']
+from gendiff.formatter import TYPES
 
 
 def get_type(type):

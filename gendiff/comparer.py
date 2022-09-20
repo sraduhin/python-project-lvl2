@@ -1,6 +1,8 @@
 from gendiff.parser.parser import parse_file, load_file
 from gendiff.formatter.format import format_data
 
+from gendiff.formatter import TYPES
+
 
 def compare(data1, data2):
     '''

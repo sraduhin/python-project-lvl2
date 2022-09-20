@@ -1,4 +1,7 @@
 # plain formatter
+from gendiff.formatter import TYPES
+
+
 def normalize(data):
     '''
     funcion convert bool to str, nested to "[complex value]"
@@ -21,7 +24,7 @@ def show_changes(data, depth=[]):
         if not isinstance(value, dict) or value.get('type') == 'no changes':
             continue
         depth.append(key)
-        if isinstance(value, dict) and value.get('type'):
+        if isinstance(value, dict) and value.get('type') in TYPES:
             type = value['type']
             result += f"Property '{'.'.join(depth)}' was {type}"
             if type == 'added':
