@@ -43,7 +43,7 @@ def generate_diff(filepath1, filepath2, format='stylish'):
     '''
     content1, extension1 = load_file(filepath1)
     content2, extension2 = load_file(filepath2)
-    data1 = parse_file(load_file(content1, extension1))
-    data2 = parse_file(load_file(content2, extension2))
+    data1 = parse_file(content1, extension1)
+    data2 = parse_file(content2, extension2)
     result = compare(data1, data2)
     return format_data(result, format)
