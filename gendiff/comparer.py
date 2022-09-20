@@ -37,13 +37,12 @@ def compare(data1, data2):
     return result
 
 
-def generate_diff(filepath1, filepath2, format):
+def generate_diff(filepath1, filepath2, format='stylish'):
     '''
     run comparer and show result in format type
 
     raises: unknown format
     '''
-    format = format or 'stylish'
     content1, extension1 = load_file(filepath1)
     content2, extension2 = load_file(filepath2)
     data1 = parse_file(content1, extension1)
