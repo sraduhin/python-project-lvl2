@@ -10,8 +10,6 @@ FORMAT = {
 
 
 def format_data(data, format_type):
-    try:
-        format_function = FORMAT[format_type]
-        return format_function(data)
-    except TypeError:
-        f"Unknown format: {format_type}"
+    format_type = format_type or 'stylish'
+    format_function = FORMAT[format_type]
+    return format_function(data)

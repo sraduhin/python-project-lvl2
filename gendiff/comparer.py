@@ -34,11 +34,10 @@ def compare(data1, data2):
                 'type': TYPES[0],  # added
                 'value': data2[key]
             }
-    print('check result', result)
     return result
 
 
-def generate_diff(filepath1, filepath2, format='stylish'):
+def generate_diff(filepath1, filepath2, format):
     '''
     run comparer and show result in format type
 
