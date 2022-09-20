@@ -43,6 +43,7 @@ def generate_diff(filepath1, filepath2, format):
 
     raises: unknown format
     '''
+    format = format or 'stylish'
     content1, extension1 = load_file(filepath1)
     content2, extension2 = load_file(filepath2)
     data1 = parse_file(content1, extension1)

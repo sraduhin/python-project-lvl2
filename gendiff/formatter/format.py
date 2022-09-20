@@ -10,6 +10,5 @@ FORMAT = {
 
 
 def format_data(data, format_type):
-    format_type = format_type or 'stylish'
     format_function = FORMAT[format_type]
     return format_function(data)
