@@ -32,6 +32,7 @@ def compare(data1, data2):
                 'type': 'added',
                 'value': data2[key]
             }
+    print(result)
     return result
 
 
