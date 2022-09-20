@@ -23,14 +23,5 @@ gendiff = "gendiff.scripts.gendiff:main"
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
-# Unit test / coverage
-htmlcov/
-.tox/
-.nox/
+# coverage
 .coverage
-.cache
-nosetests.xml
-*.cover
-*.py,cover
-.hypothesis/
-.pytest_cache/
