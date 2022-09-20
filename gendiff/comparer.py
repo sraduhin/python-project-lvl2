@@ -32,7 +32,7 @@ def compare(data1, data2):
                 'type': 'added',
                 'value': data2[key]
             }
-    print(result)
+    print('check result', result)
     return result
 
 
@@ -46,5 +46,7 @@ def generate_diff(filepath1, filepath2, format='stylish'):
     content2, extension2 = load_file(filepath2)
     data1 = parse_file(content1, extension1)
     data2 = parse_file(content2, extension2)
+    print('check data1', data1)
+    print('check data2', data2)
     result = compare(data1, data2)
     return format_data(result, format)
