@@ -37,7 +37,7 @@ def compare(data1, data2):
     return result
 
 
-def generate_diff(filepath1, filepath2, format=FORMAT['default']):
+def generate_diff(filepath1, filepath2, format=list(FORMAT.keys())[0]):
     '''
     run comparer and show result in format type
 
