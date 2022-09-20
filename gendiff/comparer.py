@@ -1,5 +1,5 @@
 from gendiff.parser.parser import parse_file, load_file
-from gendiff.formatter.format import format_data
+from gendiff.formatter.format import format_data, FORMAT
 
 from gendiff.formatter import TYPES
 
@@ -37,7 +37,7 @@ def compare(data1, data2):
     return result
 
 
-def generate_diff(filepath1, filepath2, format='stylish'):
+def generate_diff(filepath1, filepath2, format=FORMAT['default']):
     '''
     run comparer and show result in format type
 

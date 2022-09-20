@@ -3,6 +3,7 @@ from gendiff.formatter.plain import plain_formatter
 from gendiff.formatter.stylish import stylish_formatter
 
 FORMAT = {
+    'default': stylish_formatter,
     'stylish': stylish_formatter,
     'plain': plain_formatter,
     'json': json_formatter
