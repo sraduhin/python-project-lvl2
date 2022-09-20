@@ -18,18 +18,18 @@ def show_changes(data, depth=[]):
     Property '{'.'.join(depth)}' was removed(added, updated)"'''
     result = ''
     for key, value in data.items():
-        if not isinstance(value, dict):
+        if not isinstance(value, dict) or value.get('type') == 'no changes':
             continue
         depth.append(key)
-        if isinstance(value, dict) and value.get('action'):
-            action = value['action']
-            result += f"Property '{'.'.join(depth)}' was "
-            if action == '+':
-                result += f"added with value: {normalize(value['value'])}\n"
-            elif action == '-':
-                result += 'removed\n'
+        if isinstance(value, dict) and value.get('type'):
+            type = value['type']
+            result += f"Property '{'.'.join(depth)}' was {type}"
+            if type == 'added':
+                result += f" with value: {normalize(value['value'])}\n"
+            elif type == 'removed':
+                result += '\n'
             else:
-                result += f"updated. From {normalize(value['old_value'])} "
+                result += f". From {normalize(value['old_value'])} "
                 result += f"to {normalize(value['new_value'])}\n"
         else:
             result += show_changes(value, depth)
@@ -37,7 +37,7 @@ def show_changes(data, depth=[]):
     return result
 
 
-def main(data):
+def plain_formatter(data):
     '''main function
 
     cut last\n

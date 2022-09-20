@@ -1,19 +1,23 @@
 SIMPLE_REPR = {
     'follow': {
-        'action': '-', 'value': False
+        'type': 'removed',
+        'value': False
     },
-    'host': 'hexlet.io',
+    'host': {
+        'type': 'no changes',
+        'value': 'hexlet.io'
+    },
     'proxy': {
-        'action': '-',
+        'type': 'removed',
         'value': '123.234.53.22'
     },
     'timeout': {
-        'action': 'update',
+        'type': 'updated',
         'old_value': 50,
         'new_value': 20
     },
     'verbose': {
-        'action': '+',
+        'type': 'added',
         'value': True
     }
 }
@@ -21,25 +25,28 @@ SIMPLE_REPR = {
 NESTED_REPR = {
     'common': {
         'follow': {
-            'action': '+',
+            'type': 'added',
             'value': False
         },
-        'setting1': 'Value 1',
+        'setting1': {
+            'type': 'no changes',
+            'value': 'Value 1'
+        },
         'setting2': {
-            'action': '-',
+            'type': 'removed',
             'value': 200
         },
         'setting3': {
-            'action': 'update',
+            'type': 'updated',
             'old_value': True,
             'new_value': None
         },
         'setting4': {
-            'action': '+',
+            'type': 'added',
             'value': 'blah blah'
         },
         'setting5': {
-            'action': '+',
+            'type': 'added',
             'value': {
                 'key5': 'value5'
             }
@@ -47,27 +54,33 @@ NESTED_REPR = {
         'setting6': {
             'doge': {
                 'wow': {
-                    'action': 'update',
+                    'type': 'updated',
                     'old_value': '',
                     'new_value': 'so much'
                 }
             },
-            'key': 'value',
+            'key': {
+                'type': 'no changes',
+                'value': 'value'
+            },
             'ops': {
-                'action': '+',
+                'type': 'added',
                 'value': 'vops'
             }
         }
     },
     'group1': {
         'baz': {
-            'action': 'update',
+            'type': 'updated',
             'old_value': 'bas',
             'new_value': 'bars'
         },
-        'foo': 'bar',
+        'foo': {
+            'type': 'no changes',
+            'value': 'bar'
+        },
         'nest': {
-            'action': 'update',
+            'type': 'updated',
             'old_value': {
                 'key': 'value'
             },
@@ -75,7 +88,7 @@ NESTED_REPR = {
         }
     },
     'group2': {
-        'action': '-',
+        'type': 'removed',
         'value': {
             'abc': 12345,
             'deep': {
@@ -84,7 +97,7 @@ NESTED_REPR = {
         }
     },
     'group3': {
-        'action': '+',
+        'type': 'added',
         'value': {
             'deep': {
                 'id': {

@@ -3,8 +3,12 @@ import json
 import re
 
 
-def has_children(data):
-    return isinstance(data, dict)
+def get_type(type):
+    return {
+        'no changes': ' ',
+        'added': '+',
+        'removed': '-'
+    }[type]
 
 
 def make_tree(data):
@@ -12,20 +16,20 @@ def make_tree(data):
     function rebuild dictionary representation
     '''
     result = {}
-    if not has_children(data):
+    if not isinstance(data, dict):
         return data
     for key, value in data.items():
-        if not has_children(value):
+        if not isinstance(value, dict):
             result[f'  {key}'] = value
-        elif not data[key].get('action'):
+        elif not data[key].get('type'):
             result[f'  {key}'] = make_tree(value)
         else:
-            action = data[key].get('action')
-            if action == 'update':
+            type = data[key].get('type')
+            if type == 'updated':
                 result[f'- {key}'] = make_tree(value['old_value'])
                 result[f'+ {key}'] = make_tree(value['new_value'])
             else:
-                result[f'{action} {key}'] = make_tree(value['value'])
+                result[f'{get_type(type)} {key}'] = make_tree(value['value'])
     return result
 
 
@@ -41,6 +45,6 @@ def stringify(data):
     return result
 
 
-def main(data):
+def stylish_formatter(data):
     result = make_tree(data)
     return stringify(result)

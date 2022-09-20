@@ -1,7 +1,5 @@
-from gendiff.parser.parser import parser
-from gendiff.formatter.stylish import main as show_diff_stylish
-from gendiff.formatter.plain import main as show_diff_plain
-from gendiff.formatter.json import main as show_diff_json
+from gendiff.parser.parser import parse_file, load_file
+from gendiff.formatter.format import format_data
 
 
 def compare(data1, data2):
@@ -14,17 +12,26 @@ def compare(data1, data2):
         if isinstance(data1.get(key), dict) & isinstance(data2.get(key), dict):
             result[key] = compare(data1[key], data2[key])
         elif data1.get(key) == data2.get(key):
-            result[key] = data1.get(key)
+            result[key] = {
+                'type': 'no changes',
+                'value': data1.get(key)
+            }
         elif key in data1 and key in data2:
             result[key] = {
-                'action': 'update',
+                'type': 'updated',
                 'old_value': data1[key],
                 'new_value': data2[key]
             }
         elif key in data1:
-            result[key] = {'action': '-', 'value': data1[key]}
+            result[key] = {
+                'type': 'removed',
+                'value': data1[key]
+            }
         else:
-            result[key] = {'action': '+', 'value': data2[key]}
+            result[key] = {
+                'type': 'added',
+                'value': data2[key]
+            }
     return result
 
 
@@ -34,13 +41,7 @@ def generate_diff(filepath1, filepath2, format='stylish'):
 
     raises: unknown format
     '''
-    data1 = parser(filepath1)
-    data2 = parser(filepath2)
+    data1 = parse_file(load_file(filepath1))
+    data2 = parse_file(load_file(filepath2))
     result = compare(data1, data2)
-    if format == 'stylish' or format is None:
-        return show_diff_stylish(result)
-    elif format == 'plain':
-        return show_diff_plain(result)
-    elif format == 'json':
-        return show_diff_json(result)
-    raise ValueError(f"Unknown format: {format}")
+    return format_data(result, format)

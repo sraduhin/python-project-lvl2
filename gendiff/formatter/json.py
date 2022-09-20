@@ -2,5 +2,5 @@
 import json
 
 
-def main(data):
+def json_formatter(data):
     return json.dumps(data, indent=4)
