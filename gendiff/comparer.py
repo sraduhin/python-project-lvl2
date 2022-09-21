@@ -1,7 +1,6 @@
-from gendiff.parser.parser import parse_file, load_file
-from gendiff.formatter.format import format_data, FORMAT
-
-from gendiff.formatter import TYPES
+from gendiff.parser.parser import parse_file, get_format
+from gendiff.parser.loader import load_file
+from gendiff.formatter.format import format_data, DEFAULT_FORMAT
 
 
 def compare(data1, data2):
@@ -15,36 +14,40 @@ def compare(data1, data2):
             result[key] = compare(data1[key], data2[key])
         elif data1.get(key) == data2.get(key):
             result[key] = {
-                'type': TYPES[3],  # no changes
+                'type': 'no changes',
                 'value': data1.get(key)
             }
         elif key in data1 and key in data2:
             result[key] = {
-                'type': TYPES[2],  # updated
+                'type': 'updated',
                 'old_value': data1[key],
                 'new_value': data2[key]
             }
         elif key in data1:
             result[key] = {
-                'type': TYPES[1],  # removed
+                'type': 'removed',
                 'value': data1[key]
             }
         else:
             result[key] = {
-                'type': TYPES[0],  # added
+                'type': 'added',
                 'value': data2[key]
             }
     return result
 
 
-def generate_diff(filepath1, filepath2, format=list(FORMAT.keys())[0]):
+def generate_diff(filepath1, filepath2, format=DEFAULT_FORMAT):
     '''
-    run comparer and show result in format type
+    run comparer and show result in format type: "stylish", "plain", "json"
+
+    default format "stylish"
 
     raises: unknown format
     '''
-    content1, extension1 = load_file(filepath1)
-    content2, extension2 = load_file(filepath2)
+    content1 = load_file(filepath1)
+    extension1 = get_format(filepath1)
+    content2 = load_file(filepath2)
+    extension2 = get_format(filepath2)
     data1 = parse_file(content1, extension1)
     data2 = parse_file(content2, extension2)
     result = compare(data1, data2)

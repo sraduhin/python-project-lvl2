@@ -8,6 +8,8 @@ FORMAT = {
     'json': json_formatter
 }
 
+DEFAULT_FORMAT = 'stylish'
+
 
 def format_data(data, format_type):
     format_function = FORMAT[format_type]

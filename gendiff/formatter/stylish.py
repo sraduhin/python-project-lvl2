@@ -2,8 +2,6 @@
 import json
 import re
 
-from gendiff.formatter import TYPES
-
 
 def get_type(type):
     return {
@@ -20,14 +18,15 @@ def make_tree(data):
     result = {}
     if not isinstance(data, dict):
         return data
+    types = ['added', 'removed', 'updated', 'no changes']
     for key, value in data.items():
         if not isinstance(value, dict):
             result[f'  {key}'] = value
-        elif not data[key].get('type') in TYPES:
+        elif not data[key].get('type') in types:
             result[f'  {key}'] = make_tree(value)
         else:
             type = data[key].get('type')
-            if type == TYPES[2]:  # updated
+            if type == 'updated':
                 result[f'- {key}'] = make_tree(value['old_value'])
                 result[f'+ {key}'] = make_tree(value['new_value'])
             else:

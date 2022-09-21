@@ -1,5 +1,4 @@
 # plain formatter
-from gendiff.formatter import TYPES
 
 
 def normalize(data):
@@ -21,15 +20,16 @@ def show_changes(data, depth=[]):
     Property '{'.'.join(depth)}' was removed(added, updated)"'''
     result = ''
     for key, value in data.items():
-        if not isinstance(value, dict) or value.get('type') == TYPES[3]:
+        if not isinstance(value, dict) or value.get('type') == 'no changes':
             continue
         depth.append(key)
-        if isinstance(value, dict) and value.get('type') in TYPES:
+        types = ['added', 'removed', 'updated', 'no changes']
+        if isinstance(value, dict) and value.get('type') in types:
             type = value['type']
             result += f"Property '{'.'.join(depth)}' was {type}"
-            if type == TYPES[0]:  # added
+            if type == 'added':
                 result += f" with value: {normalize(value['value'])}\n"
-            elif type == TYPES[1]:  # removed
+            elif type == 'removed':
                 result += '\n'
             else:
                 result += f". From {normalize(value['old_value'])} "

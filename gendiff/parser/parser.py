@@ -1,34 +1,23 @@
-import os
 import json
 import yaml
 
+JSON_FORMATS = ['json']
+YAML_FORMATS = ['yml', 'yaml']
 
-JSON_EXTENSIONS = ['json']
-YAML_EXTENSIONS = ['yml', 'yaml']
 
-
-def load_file(filepath):
+def get_format(filepath):
     '''
-    read file
+    extract .format
 
     input: path string
 
-    output: file data
-
-    raises: wrong path, wrong extension
+    output: str or None
     '''
-    if os.path.isfile(filepath):
-        extension = filepath.split('.')[1]
-        if extension not in (JSON_EXTENSIONS + YAML_EXTENSIONS):
-            file_name = filepath.split('/').pop()
-            raise ValueError(f'enexpected extension of the file: {file_name}')
-        with open(filepath, 'r') as f:
-            f = f.read()
-            return f, extension
-    raise ValueError(f"{filepath} doesn't exists")
+    chain = filepath.split('.')
+    return chain[1] if len(chain) == 2 else None
 
 
-def parse_file(content, extension='undefined'):
+def parse_file(content, format='undefined'):
     '''
     parse data to required type
 
@@ -38,13 +27,14 @@ def parse_file(content, extension='undefined'):
 
     raises: wrong file data
     '''
-    if extension == 'undefined':
+    if format == 'undefined':
         if content.startswith('---'):
             return yaml.safe_load(content)
         elif content.startswith('{'):
             return json.loads(content)
         raise ValueError('Wrong file data')
-    if extension in JSON_EXTENSIONS:
+    if format in JSON_FORMATS:
         return json.loads(content)
-    if extension in YAML_EXTENSIONS:
+    if format in YAML_FORMATS:
         return yaml.safe_load(content)
+    raise ValueError(f'enexpected format: {format}')
