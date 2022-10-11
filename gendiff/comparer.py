@@ -11,7 +11,10 @@ def compare(data1, data2):
     union_keys = sorted(set(data1.keys() | data2.keys()))
     for key in union_keys:
         if isinstance(data1.get(key), dict) & isinstance(data2.get(key), dict):
-            result[key] = compare(data1[key], data2[key])
+            result[key] = {
+                'type': 'children',
+                'value': compare(data1[key], data2[key])
+            }
         elif data1.get(key) == data2.get(key):
             result[key] = {
                 'type': 'no changes',

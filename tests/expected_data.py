@@ -24,67 +24,79 @@ SIMPLE_REPR = {
 
 NESTED_REPR = {
     'common': {
-        'follow': {
-            'type': 'added',
-            'value': False
-        },
-        'setting1': {
-            'type': 'no changes',
-            'value': 'Value 1'
-        },
-        'setting2': {
-            'type': 'removed',
-            'value': 200
-        },
-        'setting3': {
-            'type': 'updated',
-            'old_value': True,
-            'new_value': None
-        },
-        'setting4': {
-            'type': 'added',
-            'value': 'blah blah'
-        },
-        'setting5': {
-            'type': 'added',
-            'value': {
-                'key5': 'value5'
-            }
-        },
-        'setting6': {
-            'doge': {
-                'wow': {
-                    'type': 'updated',
-                    'old_value': '',
-                    'new_value': 'so much'
+        'type': 'children',
+        'value': {
+            'follow': {
+                'type': 'added',
+                'value': False
+            },
+            'setting1': {
+                'type': 'no changes',
+                'value': 'Value 1'
+            },
+            'setting2': {
+                'type': 'removed',
+                'value': 200
+            },
+            'setting3': {
+                'type': 'updated',
+                'old_value': True,
+                'new_value': None
+            },
+            'setting4': {
+                'type': 'added',
+                'value': 'blah blah'
+            },
+            'setting5': {
+                'type': 'added',
+                'value': {
+                    'key5': 'value5'
                 }
             },
-            'key': {
-                'type': 'no changes',
-                'value': 'value'
-            },
-            'ops': {
-                'type': 'added',
-                'value': 'vops'
+            'setting6': {
+                'type': 'children',
+                'value': {
+                    'doge': {
+                        'type': 'children',
+                        'value': {
+                            'wow': {
+                                'type': 'updated',
+                                'old_value': '',
+                                'new_value': 'so much'
+                            }
+                        }
+                    },
+                    'key': {
+                        'type': 'no changes',
+                        'value': 'value'
+                    },
+                    'ops': {
+                        'type': 'added',
+                        'value': 'vops'
+                    }
+                }
             }
         }
     },
     'group1': {
-        'baz': {
-            'type': 'updated',
-            'old_value': 'bas',
-            'new_value': 'bars'
-        },
-        'foo': {
-            'type': 'no changes',
-            'value': 'bar'
-        },
-        'nest': {
-            'type': 'updated',
-            'old_value': {
-                'key': 'value'
+        'type': 'children',
+        'value': {
+            'baz': {
+                'type': 'updated',
+                'old_value': 'bas',
+                'new_value': 'bars'
             },
-            'new_value': 'str'
+            'foo': {
+                'type': 'no changes',
+                'value': 'bar'
+            },
+            'nest': {
+                'type': 'updated',
+                'old_value': {
+                    'key': 'value'
+                },
+                'new_value': 'str'
+            }
         }
     },
     'group2': {

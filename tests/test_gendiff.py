@@ -84,6 +84,9 @@ def test_generate_diff_nested():
     '''test compare complex json'''
     data1 = load_file('tests/fixtures/nested/file1.json')
     data2 = load_file('tests/fixtures/nested/file2.json')
+    print(compare(parse_file(data1), parse_file(data2)))
+    print('>>>>')
+    print(expected.NESTED_REPR)
     assert compare(parse_file(data1), parse_file(data2)) == expected.NESTED_REPR
 
 
