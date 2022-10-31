@@ -1,0 +1,5 @@
+ADDED = 'added'
+REMOVED = 'removed'
+UPDATED = 'updated'
+CHILDREN = 'children'
+UNCHANGED = 'no changes'

@@ -1,6 +1,9 @@
 from gendiff.parser.parser import parse_file, get_format
 from gendiff.parser.loader import load_file
-from gendiff.formatter.format import format_data, DEFAULT_FORMAT
+from gendiff.formatter.format import format_data
+from gendiff.constrants import CHILDREN, UNCHANGED, UPDATED, REMOVED, ADDED
+
+DEFAULT_FORMAT = 'stylish'
 
 
 def compare(data1, data2):
@@ -12,28 +15,28 @@ def compare(data1, data2):
     for key in union_keys:
         if isinstance(data1.get(key), dict) & isinstance(data2.get(key), dict):
             result[key] = {
-                'type': 'children',
+                'type': CHILDREN,
                 'value': compare(data1[key], data2[key])
             }
         elif data1.get(key) == data2.get(key):
             result[key] = {
-                'type': 'no changes',
+                'type': UNCHANGED,
                 'value': data1.get(key)
             }
         elif key in data1 and key in data2:
             result[key] = {
-                'type': 'updated',
+                'type': UPDATED,
                 'old_value': data1[key],
                 'new_value': data2[key]
             }
         elif key in data1:
             result[key] = {
-                'type': 'removed',
+                'type': REMOVED,
                 'value': data1[key]
             }
         else:
             result[key] = {
-                'type': 'added',
+                'type': ADDED,
                 'value': data2[key]
             }
     return result

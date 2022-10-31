@@ -1,4 +1,6 @@
 # plain formatter
+from gendiff.constrants import (ADDED, REMOVED, UPDATED, CHILDREN,
+                                UNCHANGED)
 
 
 def normalize(data):
@@ -20,16 +22,21 @@ def show_changes(data, depth=[]):
     Property '{'.'.join(depth)}' was removed(added, updated)"'''
     result = ''
     for key, value in data.items():
-        if not isinstance(value, dict) or value.get('type') == 'no changes':
+        if not isinstance(value, dict):
+            continue
+        if value.get('type') == UNCHANGED:
             continue
         depth.append(key)
-        types = ['added', 'removed', 'updated', 'no changes']
-        if isinstance(value, dict) and value.get('type') in types:
+        if value.get('type') == CHILDREN:
+            result += show_changes(value['value'], depth)
+            depth.pop()
+            continue
+        if value.get('type') in [ADDED, REMOVED, UPDATED]:
             type = value['type']
             result += f"Property '{'.'.join(depth)}' was {type}"
-            if type == 'added':
+            if type == ADDED:
                 result += f" with value: {normalize(value['value'])}\n"
-            elif type == 'removed':
+            elif type == REMOVED:
                 result += '\n'
             else:
                 result += f". From {normalize(value['old_value'])} "

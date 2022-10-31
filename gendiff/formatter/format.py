@@ -8,9 +8,9 @@ FORMAT = {
     'json': json_formatter
 }
 
-DEFAULT_FORMAT = 'stylish'
-
 
 def format_data(data, format_type):
-    format_function = FORMAT[format_type]
-    return format_function(data)
+    format_function = FORMAT.get(format_type)
+    if format_function:
+        return format_function(data)
+    raise Exception('Unsupported format!')

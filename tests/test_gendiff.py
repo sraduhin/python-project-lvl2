@@ -4,6 +4,7 @@ from gendiff.parser.loader import load_file
 from gendiff.formatter.stylish import stylish_formatter
 from gendiff.formatter.plain import plain_formatter
 from gendiff.formatter.json import json_formatter
+from gendiff.formatter.format import format_data
 import pytest
 import tests.expected_data as expected
 
@@ -92,9 +93,9 @@ def test_generate_diff_nested():
 
 def test_show_diff():
     '''test all formatters types'''
-    assert stylish_formatter(expected.SIMPLE_REPR) == expected.SIMPLE_DATA_RESULT_STYLISH  # noqa:E501
-    assert stylish_formatter(expected.NESTED_REPR) == expected.NESTED_DATA_RESULT_STYLISH  # noqa:E501
     assert plain_formatter(expected.SIMPLE_REPR) == expected.SIMPLE_DATA_RESULT_PLAIN  # noqa:E501
     assert plain_formatter(expected.NESTED_REPR) == expected.NESTED_DATA_RESULT_PLAIN  # noqa:E501
+    assert stylish_formatter(expected.SIMPLE_REPR) == expected.SIMPLE_DATA_RESULT_STYLISH  # noqa:E501
+    assert stylish_formatter(expected.NESTED_REPR) == expected.NESTED_DATA_RESULT_STYLISH  # noqa:E501
     assert json_formatter(expected.SIMPLE_REPR) == expected.SIMPLE_DATA_RESULT_JSON  # noqa:E501
     assert json_formatter(expected.NESTED_REPR) == expected.NESTED_DATA_RESULT_JSON  # noqa:E501
