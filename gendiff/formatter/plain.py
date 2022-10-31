@@ -16,7 +16,7 @@ def normalize(data):
     return '[complex value]' if isinstance(data, dict) else f"'{data}'"
 
 
-def show_changes(data, depth=[]):
+def show_changes(data, depth=[]):  # noqa:C901
     '''function makes raws kind of
 
     Property '{'.'.join(depth)}' was removed(added, updated)"'''

@@ -6,7 +6,7 @@ REPLACER = ' '
 SPACE_COUNT = 4
 
 
-def stylish_formatter(data):
+def stylish_formatter(data):  # noqa:C901
     '''
     function rebuild dictionary representation
     '''
