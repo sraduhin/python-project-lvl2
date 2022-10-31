@@ -4,7 +4,6 @@ from gendiff.parser.loader import load_file
 from gendiff.formatter.stylish import stylish_formatter
 from gendiff.formatter.plain import plain_formatter
 from gendiff.formatter.json import json_formatter
-from gendiff.formatter.format import format_data
 import pytest
 import tests.expected_data as expected
 
