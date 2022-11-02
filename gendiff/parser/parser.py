@@ -14,7 +14,7 @@ def get_format(filepath):
     output: str or None
     '''
     chain = filepath.split('.')
-    return chain[1] if len(chain) == 2 else None
+    return chain[-1] if len(chain) > 1 else None
 
 
 def parse_file(content, format='undefined'):

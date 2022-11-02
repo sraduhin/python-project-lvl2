@@ -20,36 +20,36 @@ def show_changes(data, depth=[]):  # noqa:C901
     '''function makes raws kind of
 
     Property '{'.'.join(depth)}' was removed(added, updated)"'''
-    result = ''
-    for key, value in data.items():
+    result = []
+    for key, value in sorted(data.items()):
         if not isinstance(value, dict):
             continue
         if value.get('type') == UNCHANGED:
             continue
         depth.append(key)
         if value.get('type') == CHILDREN:
-            result += show_changes(value['value'], depth)
+            result.extend(show_changes(value['value'], depth))
             depth.pop()
             continue
         if value.get('type') in [ADDED, REMOVED, UPDATED]:
             type = value['type']
-            result += f"Property '{'.'.join(depth)}' was {type}"
-            if type == ADDED:
-                result += f" with value: {normalize(value['value'])}\n"
-            elif type == REMOVED:
-                result += '\n'
+            line = f"Property '{'.'.join(depth)}' was {type}"
+            if type == REMOVED:
+                result.append(line)
+            elif type == ADDED:
+                line += f" with value: {normalize(value['value'])}"
+                result.append(line)
             else:
-                result += f". From {normalize(value['old_value'])} "
-                result += f"to {normalize(value['new_value'])}\n"
+                line += f". From {normalize(value['old_value'])} "
+                line += f"to {normalize(value['new_value'])}"
+                result.append(line)
         else:
-            result += show_changes(value, depth)
+            result.append(show_changes(value, depth))
         depth.pop()
     return result
 
 
 def plain_formatter(data):
     '''main function
-
-    cut last\n
     '''
-    return show_changes(data)[:-1]
+    return '\n'.join(show_changes(data))

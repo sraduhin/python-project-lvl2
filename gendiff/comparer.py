@@ -1,9 +1,7 @@
 from gendiff.parser.parser import parse_file, get_format
 from gendiff.parser.loader import load_file
-from gendiff.formatter.format import format_data
+from gendiff.formatter.format import format_data, DEFAULT_FORMAT
 from gendiff.constrants import CHILDREN, UNCHANGED, UPDATED, REMOVED, ADDED
-
-DEFAULT_FORMAT = 'stylish'
 
 
 def compare(data1, data2):
@@ -11,7 +9,7 @@ def compare(data1, data2):
     function build dictionary representation diff files
     '''
     result = {}
-    union_keys = sorted(set(data1.keys() | data2.keys()))
+    union_keys = set(data1.keys() | data2.keys())
     for key in union_keys:
         if isinstance(data1.get(key), dict) & isinstance(data2.get(key), dict):
             result[key] = {

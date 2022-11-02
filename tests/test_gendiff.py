@@ -22,8 +22,9 @@ def test_parser_path():
 def test_get_format():
     '''test formats exctraction'''
     assert get_format(get_path('')) is None
-    assert get_format(get_path('x.y.z')) is None
-    assert get_format(get_path('x.json')) == 'json'
+    assert get_format(get_path('json')) is None
+    assert get_format(get_path('some.json')) == 'json'
+    assert get_format(get_path('some.name.with.dots.json')) == 'json'
 
 
 def test_parser_extension():
